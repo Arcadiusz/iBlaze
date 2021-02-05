@@ -6,7 +6,6 @@ export const loadGames = () => async (dispatch) => {
     const upcomingGames = await fetch(UPCOMING_GAMES).then((res) => res.json());
     const newGames = await fetch(NEW_GAMES).then((res) => res.json());
 
-    console.log(popularGames);
     dispatch({
         type: "FETCH_GAMES",
         payload: {
