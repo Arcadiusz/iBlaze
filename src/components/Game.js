@@ -5,6 +5,7 @@ import {motion} from "framer-motion";
 import {loadDetails} from "../actions/detailsAction";
 
 import {useDispatch} from "react-redux";
+import {Link} from "react-router-dom";
 
 const GameDiv = styled(motion.div)`
     min-height: 400px;
@@ -30,9 +31,11 @@ function Game({name, released, image, id}) {
 
     return (
         <GameDiv onClick={loadDetailsHanlder}>
-            <h3>{name}</h3>
-            <p>{released}</p>
-            <img src={image} alt={name} />
+            <Link to={`/game/${id}`}>
+                <h3>{name}</h3>
+                <p>{released}</p>
+                <img src={image} alt={name} />
+            </Link>
         </GameDiv>
     );
 }

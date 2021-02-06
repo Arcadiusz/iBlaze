@@ -14,7 +14,7 @@ function GameDetail() {
                 <Stats>
                     <div className="rating">
                         <h3>{game.name}</h3>
-                        <p>Rating: {game.ration}</p>
+                        <p>Rating: {game.rating}</p>
                     </div>
                     <Info>
                         <h3>Platforms:</h3>
