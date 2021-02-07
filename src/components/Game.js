@@ -27,6 +27,7 @@ function Game({name, released, image, id}) {
 
     const loadDetailsHanlder = () => {
         dispatch(loadDetails(id));
+        document.body.style.overflow = "hidden";
     };
 
     return (

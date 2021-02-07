@@ -3,14 +3,25 @@ import styled from "styled-components";
 import {motion} from "framer-motion";
 import loadingGif from "./loading.svg";
 import {useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 function GameDetail() {
     const {screenshots, game, isLoading} = useSelector((state) => {
         return state.detail;
     });
+
+    const history = useHistory();
+    const exitDetailHandler = (e) => {
+        const element = e.target;
+        if (element.classList.contains("shadow")) {
+            document.body.style.overflow = "auto";
+            history.push("/");
+        }
+    };
+
     return (
         <>
-            <CardShadow>
+            <CardShadow className="shadow" onClick={exitDetailHandler}>
                 <Detail>
                     {isLoading ? (
                         <Loader src={loadingGif} alt="" />
@@ -29,7 +40,7 @@ function GameDetail() {
                                                 return (
                                                     <div
                                                         className="platform"
-                                                        id={
+                                                        key={
                                                             platform.platform.id
                                                         }>
                                                         {platform.platform.name}
