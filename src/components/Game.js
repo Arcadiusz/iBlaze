@@ -17,7 +17,7 @@ const GameDiv = styled(motion.div)`
     height: 30vmin;
     img {
         width: 100%;
-        height: 40vh;
+        height: 80%;
         object-fit: cover;
     }
 `;
