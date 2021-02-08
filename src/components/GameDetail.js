@@ -5,7 +5,7 @@ import loadingGif from "./loading.svg";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 
-function GameDetail() {
+function GameDetail({pathId}) {
     const {screenshots, game, isLoading} = useSelector((state) => {
         return state.detail;
     });
@@ -20,59 +20,59 @@ function GameDetail() {
     };
 
     return (
-        <>
-            <CardShadow className="shadow" onClick={exitDetailHandler}>
-                <Detail>
-                    {isLoading ? (
-                        <Loader src={loadingGif} alt="" />
-                    ) : (
-                        <>
-                            <Stats>
-                                <div className="rating">
-                                    <h3>{game.name}</h3>
-                                    <p>Rating: {game.rating}</p>
-                                </div>
-                                <Info>
-                                    <h3>Platforms:</h3>
-                                    <Platforms>
-                                        {game.platforms &&
-                                            game.platforms.map((platform) => {
-                                                return (
-                                                    <div
-                                                        className="platform"
-                                                        key={
-                                                            platform.platform.id
-                                                        }>
-                                                        {platform.platform.name}
-                                                    </div>
-                                                );
-                                            })}
-                                    </Platforms>
-                                </Info>
-                            </Stats>
-                            <Media>
-                                <img src={game.background_image} alt="" />
-                            </Media>
-                            <Description>
-                                <p>{game.description_raw}</p>
-                            </Description>
-                            <div className="gallery">
-                                {screenshots.results &&
-                                    screenshots.results.map((screen) => {
-                                        return (
-                                            <img
-                                                src={screen.image}
-                                                key={screen.id}
-                                                alt="Game screen"
-                                            />
-                                        );
-                                    })}
+        <CardShadow className="shadow" onClick={exitDetailHandler}>
+            <Detail layoutId={pathId}>
+                {isLoading ? (
+                    <Loader src={loadingGif} alt="" />
+                ) : (
+                    <>
+                        <Stats>
+                            <div className="rating">
+                                <h3>{game.name}</h3>
+                                <p>Rating: {game.rating}</p>
                             </div>
-                        </>
-                    )}
-                </Detail>
-            </CardShadow>
-        </>
+                            <Info>
+                                <h3>Platforms:</h3>
+                                <Platforms>
+                                    {game.platforms &&
+                                        game.platforms.map((platform) => {
+                                            return (
+                                                <div
+                                                    className="platform"
+                                                    key={platform.platform.id}>
+                                                    {platform.platform.name}
+                                                </div>
+                                            );
+                                        })}
+                                </Platforms>
+                            </Info>
+                        </Stats>
+                        <Media>
+                            <motion.img
+                                layoutId={`image ${pathId}`}
+                                src={game.background_image}
+                                alt=""
+                            />
+                        </Media>
+                        <Description>
+                            <p>{game.description_raw}</p>
+                        </Description>
+                        <div className="gallery">
+                            {screenshots.results &&
+                                screenshots.results.map((screen) => {
+                                    return (
+                                        <img
+                                            src={screen.image}
+                                            key={screen.id}
+                                            alt="Game screen"
+                                        />
+                                    );
+                                })}
+                        </div>
+                    </>
+                )}
+            </Detail>
+        </CardShadow>
     );
 }
 
@@ -84,6 +84,7 @@ const CardShadow = styled(motion.div)`
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 999;
 
     &::-webkit-scrollbar {
         width: 0.5rem;

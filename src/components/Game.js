@@ -30,12 +30,18 @@ function Game({name, released, image, id}) {
         document.body.style.overflow = "hidden";
     };
 
+    const stringPathId = id.toString();
+
     return (
-        <GameDiv onClick={loadDetailsHanlder}>
+        <GameDiv layoutId={stringPathId} onClick={loadDetailsHanlder}>
             <Link to={`/game/${id}`}>
                 <h3>{name}</h3>
                 <p>{released}</p>
-                <img src={image} alt={name} />
+                <motion.img
+                    layoutId={`image ${stringPathId}`}
+                    src={image}
+                    alt={name}
+                />
             </Link>
         </GameDiv>
     );
