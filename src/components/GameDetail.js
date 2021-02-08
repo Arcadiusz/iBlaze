@@ -13,6 +13,8 @@ import nintendo from "../img/nintendo.svg";
 import apple from "../img/apple.svg";
 import gamePad from "../img/gamepad.svg";
 
+import star from "../img/star.svg";
+
 function GameDetail({pathId}) {
     const {screenshots, game, isLoading} = useSelector((state) => {
         return state.detail;
@@ -50,6 +52,14 @@ function GameDetail({pathId}) {
         }
     };
 
+    const renderStars = () => {
+        let array = [];
+        for (let i = 0; i < 5; i++) {
+            array.push(<img src={star} />);
+        }
+        return array;
+    };
+
     return (
         <CardShadow className="shadow" onClick={exitDetailHandler}>
             <Detail layoutId={pathId}>
@@ -61,6 +71,11 @@ function GameDetail({pathId}) {
                             <div className="rating">
                                 <h3>{game.name}</h3>
                                 <p>Rating: {game.rating}</p>
+                                <GameStarsRating rating={game.rating}>
+                                    {/* <div>{renderStars()}</div> */}
+                                    <div>★★★★★</div>
+                                    ★★★★★
+                                </GameStarsRating>
                             </div>
                             <Info>
                                 <h3>Platforms:</h3>
@@ -184,6 +199,23 @@ const Loader = styled.img`
     width: 10vmin;
     max-width: 100px;
     transform: translate(-50%, -50%);
+`;
+
+const GameStarsRating = styled.div`
+    width: 200px;
+    height: 40px;
+    position: relative;
+    font-size: 40px;
+    line-height: 100%;
+    div {
+        width: ${(props) => (props.rating ? props.rating * 20 : 0)}%;
+        position: absolute;
+        height: 100%;
+        background-color: yellow;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
 `;
 
 export default GameDetail;
