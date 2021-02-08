@@ -7,6 +7,8 @@ import {loadDetails} from "../actions/detailsAction";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 
+import {popup} from "../animations";
+
 const GameDiv = styled(motion.div)`
     min-height: 400px;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
@@ -33,7 +35,12 @@ function Game({name, released, image, id}) {
     const stringPathId = id.toString();
 
     return (
-        <GameDiv layoutId={stringPathId} onClick={loadDetailsHanlder}>
+        <GameDiv
+            variants={popup}
+            initial="hidden"
+            animate="show"
+            layoutId={stringPathId}
+            onClick={loadDetailsHanlder}>
             <Link to={`/game/${id}`}>
                 <h3>{name}</h3>
                 <p>{released}</p>

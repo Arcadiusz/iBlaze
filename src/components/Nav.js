@@ -7,6 +7,8 @@ import logo from "../img/logo.svg";
 import {fetchSearch} from "../actions/gamesAction";
 import {useDispatch} from "react-redux";
 
+import {fadeIn} from "../animations";
+
 function Nav() {
     const dispatch = useDispatch();
     const [textInput, setTextInput] = useState("");
@@ -26,7 +28,7 @@ function Nav() {
     };
 
     return (
-        <StyledNav>
+        <StyledNav variants={fadeIn} initial="hidden" animate="show">
             <Logo onClick={clearSearched}>
                 <img src={logo} alt="logo" />
                 <h1>iBlaze</h1>
