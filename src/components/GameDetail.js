@@ -5,6 +5,14 @@ import loadingGif from "./loading.svg";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 
+//images
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamePad from "../img/gamepad.svg";
+
 function GameDetail({pathId}) {
     const {screenshots, game, isLoading} = useSelector((state) => {
         return state.detail;
@@ -16,6 +24,29 @@ function GameDetail({pathId}) {
         if (element.classList.contains("shadow")) {
             document.body.style.overflow = "auto";
             history.push("/");
+        }
+    };
+
+    const getPlatformImages = (platform) => {
+        switch (platform) {
+            case "PlayStation 4":
+                return playstation;
+            case "Xbox One":
+                return xbox;
+            case "Xbox Series S/X":
+                return xbox;
+            case "PlayStation":
+                return playstation;
+            case "PlayStation 5":
+                return playstation;
+            case "PC":
+                return steam;
+            case "Nintento Switch":
+                return nintendo;
+            case "iOS":
+                return apple;
+            default:
+                return gamePad;
         }
     };
 
@@ -37,11 +68,16 @@ function GameDetail({pathId}) {
                                     {game.platforms &&
                                         game.platforms.map((platform) => {
                                             return (
-                                                <div
-                                                    className="platform"
-                                                    key={platform.platform.id}>
-                                                    {platform.platform.name}
-                                                </div>
+                                                <img
+                                                    key={platform.platform.id}
+                                                    src={getPlatformImages(
+                                                        platform.platform.name,
+                                                    )}
+                                                    alt={platform.platform.name}
+                                                    title={
+                                                        platform.platform.name
+                                                    }
+                                                />
                                             );
                                         })}
                                 </Platforms>
