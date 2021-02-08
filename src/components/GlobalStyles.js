@@ -8,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .App {
-        padding: 5rem 0;
+        padding: 2rem 0;
     }
 
     html{

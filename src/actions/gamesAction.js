@@ -1,4 +1,4 @@
-import {POPULAR_GAMES, UPCOMING_GAMES, NEW_GAMES} from "../api";
+import {POPULAR_GAMES, UPCOMING_GAMES, NEW_GAMES, searchGameUrl} from "../api";
 
 export const loadGames = () => async (dispatch) => {
     //FETCH DATA
@@ -12,6 +12,19 @@ export const loadGames = () => async (dispatch) => {
             popular: popularGames.results,
             upcoming: upcomingGames.results,
             new: newGames.results,
+        },
+    });
+};
+
+export const fetchSearch = (gameName) => async (dispatch) => {
+    const searchedGames = await fetch(searchGameUrl(gameName)).then((res) =>
+        res.json(),
+    );
+
+    dispatch({
+        type: "FETCH_SEARCHED",
+        payload: {
+            searched: searchedGames.results,
         },
     });
 };

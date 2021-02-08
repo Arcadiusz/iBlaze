@@ -1,25 +1,50 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 import logo from "../img/logo.svg";
 
+//redux and routes
+import {fetchSearch} from "../actions/gamesAction";
+import {useDispatch} from "react-redux";
+
 function Nav() {
+    const dispatch = useDispatch();
+    const [textInput, setTextInput] = useState("");
+
+    const handleInputChange = (e) => {
+        setTextInput(e.target.value);
+    };
+
+    const onSubmitSearch = (e) => {
+        e.preventDefault();
+        dispatch(fetchSearch(textInput));
+        setTextInput("");
+    };
+
+    const clearSearched = () => {
+        dispatch({type: "CLEAR_SEARCHED"});
+    };
+
     return (
         <StyledNav>
-            <Logo>
+            <Logo onClick={clearSearched}>
                 <img src={logo} alt="logo" />
                 <h1>iBlaze</h1>
             </Logo>
-            <div className="search">
-                <input type="text" />
-                <button>search</button>
-            </div>
+            <form className="search">
+                <input
+                    value={textInput}
+                    onChange={handleInputChange}
+                    type="text"
+                />
+                <button onClick={onSubmitSearch}>search</button>
+            </form>
         </StyledNav>
     );
 }
 
 const StyledNav = styled(motion.nav)`
-    padding: 3rem 5rem;
+    padding: 2rem 4rem;
     text-align: center;
     input {
         width: 30%;
@@ -58,6 +83,8 @@ const StyledNav = styled(motion.nav)`
 `;
 
 const Logo = styled(motion.div)`
+    width: min-content;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;

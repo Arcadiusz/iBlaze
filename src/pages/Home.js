@@ -12,7 +12,7 @@ import {motion, AnimatePresence, AnimateSharedLayout} from "framer-motion";
 import {useLocation} from "react-router-dom";
 
 const GamesKindHeader = styled.h1`
-    margin: 5rem 0;
+    padding: 5rem 0;
 `;
 
 const Home = () => {
@@ -25,7 +25,7 @@ const Home = () => {
         dispatch(loadGames());
     }, [dispatch]);
 
-    const {popularGames, newGames, upcomingGames} = useSelector(
+    const {popularGames, newGames, upcomingGames, searched} = useSelector(
         (state) => state.games,
     );
 
@@ -35,6 +35,28 @@ const Home = () => {
                 <AnimatePresence>
                     {pathId && <GameDetail pathId={pathId} />}
                 </AnimatePresence>
+
+                {searched.length ? (
+                    <>
+                        <GamesKindHeader>Searched Games</GamesKindHeader>
+                        <Games>
+                            {searched.map((game) => {
+                                return (
+                                    <Game
+                                        key={game.id}
+                                        name={game.name}
+                                        released={game.released}
+                                        image={game.background_image}
+                                        id={game.id}
+                                    />
+                                );
+                            })}
+                        </Games>
+                    </>
+                ) : (
+                    ""
+                )}
+
                 <GamesKindHeader>Popular Games</GamesKindHeader>
                 <Games>
                     {popularGames.map((game) => {
